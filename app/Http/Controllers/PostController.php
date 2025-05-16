@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -65,7 +64,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-         $validatedData = $request->validate([
+        $validatedData = $request->validate([
                                     'nameofauthor' => 'required|string|max:30',
                                     'profile'=> 'nullable|url|max:255',
                                     'title' => 'required|string|max:50',
@@ -85,6 +84,13 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+    }
+
+    public function likepost(Post $post)
+    {
+       
+        $post->increment('like');
+        return redirect()->route('posts.index')->with('success', 'Post liked successfully.');
     }
 }

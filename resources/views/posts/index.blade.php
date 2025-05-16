@@ -178,7 +178,8 @@
         <p>Content: {{ $post->content }}</p>
 
         <div class="buttons">
-            <form action="#">
+            <form action="{{ route('posts.likepost', $post) }}" method="POST">
+                @csrf
                 <button type="submit">{{ $post->like ?? 0 }} 👍 Like</button>
             </form>
             <form action="#">
@@ -193,6 +194,5 @@
         </div>
         
     @endif
-
 </body>
 </html>
